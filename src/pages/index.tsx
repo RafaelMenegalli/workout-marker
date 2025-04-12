@@ -14,9 +14,9 @@ export default function Home() {
     <>
       <div className={globalStyles.container}>
         <div className={styles.mainContainer}>
-          <div className={styles.headerContainer}>
+          {/* <div className={styles.headerContainer}>
             <Text size="xxl" align="center">App Treino Rafa</Text>
-          </div>
+          </div> */}
           <Button appearance="primary" color="cyan" size="lg" onClick={startTraining} className={styles.buttonCustomWidth}>
             Começar Treino
           </Button>

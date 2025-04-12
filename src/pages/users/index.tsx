@@ -88,7 +88,7 @@ export default function Users() {
             <div className={globalStyles.container}>
                 <div className={styles.mainContainer}>
                     <div className={styles.titleContainer}>
-                        <Text className={styles.title} size="xxl" align="center">Adicionando Parcerios Para o Treino</Text>
+                        <Text className={styles.title} size="xxl" align="center">Parcerios Para o Treino</Text>
                     </div>
                     <div className={styles.addUserContainer}>
                         <form onSubmit={handleAddPartner} className={styles.form}>
@@ -107,26 +107,34 @@ export default function Users() {
                             </InputGroup>
                         </form>
 
-                        <Button appearance="primary" color="yellow" onClick={handleClearList} style={{ width: 150 }}>
-                            Limpar
-                        </Button>
+                        <div className={styles.actionButtons}>
+                            <Button appearance="primary" color="yellow" onClick={handleClearList} style={{ width: 150 }}>
+                                Limpar
+                            </Button>
+
+                            <Button appearance="primary" color="cyan" onClick={handleFinish} style={{ width: 150 }}>
+                                Concluir Membros
+                            </Button>
+                        </div>
                     </div>
 
                     <Divider>Listagem de Parceiros</Divider>
 
-                    <div className={styles.registeredUsers}>
-                        <List bordered>
-                            {users.map((user, index) => (
-                                <List.Item className={styles.listItem} key={index}>{user}</List.Item>
-                            ))}
-                        </List>
-                    </div>
+                    {users.length > 0 ? (
+                        <div className={styles.registeredUsers}>
+                            <List bordered>
+                                {users.map((user, index) => (
+                                    <List.Item className={styles.listItem} key={index}>{user}</List.Item>
+                                ))}
+                            </List>
+                        </div>
 
-                    <div className={styles.footerContainer}>
-                        <Button appearance="primary" color="cyan" onClick={handleFinish}>
-                            Concluir Membros
-                        </Button>
-                    </div>
+                    ) : (
+                        <div className={styles.emptyText}>
+                            <Text>Cadastre um parceiro para iniciar o treino...</Text>
+                        </div>
+                    )}
+
                 </div>
             </div>
         </>

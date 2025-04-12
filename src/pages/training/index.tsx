@@ -109,18 +109,20 @@ export default function Training() {
                         </Button>
                     </div>
 
-                    <List className={styles.list} bordered>
-                        {marks.map((mark, index) => (
-                            <List.Item key={index}>
-                                <Text>{mark}</Text>
-                            </List.Item>
-                        ))}
-                    </List>
+                    {marks.length > 0 && (
+                        <List className={styles.list} bordered>
+                            {marks.map((mark, index) => (
+                                <List.Item key={index}>
+                                    <Text>{mark}</Text>
+                                </List.Item>
+                            ))}
+                        </List>
+                    )}
                 </div>
 
-                <div className={styles.footer}>
+                {/* <div className={styles.footer}>
                     <Button appearance="primary" color="cyan">Trocar Exercício</Button>
-                </div>
+                </div> */}
             </div>
         </div>
     );
