@@ -1,7 +1,7 @@
 import styles from "@/styles/Home.module.css";
 import globalStyles from "@/styles/globalStyles.module.css";
-import { Button, Text } from "rsuite";
 import { useRouter } from 'next/router';
+import { Button } from "rsuite";
 
 export default function Home() {
   const router = useRouter()
