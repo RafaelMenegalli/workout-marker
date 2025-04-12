@@ -1,0 +1,11 @@
+.container {
+    width: 100%;
+    padding: 1rem;
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.backArrowIcon {
+    font-size: 1rem;
+}
