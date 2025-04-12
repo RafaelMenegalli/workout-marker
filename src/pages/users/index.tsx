@@ -116,8 +116,8 @@ export default function Users() {
 
                     <div className={styles.registeredUsers}>
                         <List bordered>
-                            {users.map(user => (
-                                <List.Item className={styles.listItem}>{user}</List.Item>
+                            {users.map((user, index) => (
+                                <List.Item className={styles.listItem} key={index}>{user}</List.Item>
                             ))}
                         </List>
                     </div>
