@@ -1,79 +1,81 @@
-import styles from "./training.module.css";
 import globalStyles from "@/styles/globalStyles.module.css";
 import { useEffect, useRef, useState } from "react";
 import { Button, Divider, List, Text } from "rsuite";
-
-const MAX_SECONDS = 59 * 60 + 59;
+import styles from "./training.module.css";
+import { ParametersGlobals } from "@/utils/ParametersGlobals";
+import { MethodsUtils } from "@/utils/MethodsUtils";
 
 export default function Training() {
-    const [users, setUsers] = useState<string[]>([]);
-    const [seconds, setSeconds] = useState<number>(0);
-    const [marks, setMarks] = useState<string[]>([]);
+    const timeRef = useRef<number | null>(null)
+
+    const [users, setUsers] = useState<string[]>([])
+    const [seconds, setSeconds] = useState<number>(0)
+    const [marks, setMarks] = useState<string[]>(["Exercício 1"])
     const [trainingSet, setTrainingSet] = useState<number>(0)
-    const timeRef = useRef<number | null>(null);
+    const [exerciseIndex, setExerciseIndex] = useState<number>(2)
 
     useEffect(() => {
         try {
-            const cachedUsers = localStorage.getItem("@trainingUsers");
+            const cachedUsers = localStorage.getItem("@trainingUsers")
             if (!cachedUsers) return;
-            const parseUsers = JSON.parse(cachedUsers);
-            setUsers(parseUsers);
+            const parseUsers = JSON.parse(cachedUsers)
+            setUsers(parseUsers)
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }, []);
 
     useEffect(() => {
         return () => {
             if (timeRef.current) {
-                clearInterval(timeRef.current);
+                clearInterval(timeRef.current)
             }
         };
     }, []);
 
     const startChronometer = () => {
-        if (timeRef.current !== null) return;
+        if (timeRef.current !== null) return
         timeRef.current = window.setInterval(() => {
             setSeconds(prev => {
-                if (prev >= MAX_SECONDS) {
-                    clearInterval(timeRef.current!);
-                    timeRef.current = null;
-                    return MAX_SECONDS;
+                if (prev >= ParametersGlobals.MAX_SECONDS) {
+                    clearInterval(timeRef.current!)
+                    timeRef.current = null
+                    return ParametersGlobals.MAX_SECONDS;
                 }
-                return prev + 1;
+                return prev + 1
             });
-        }, 1000);
-    };
+        }, 1000)
+    }
 
     const markTime = () => {
-        setMarks(prevMarks => [...prevMarks, formatTime(seconds)]);
+        setMarks(prevMarks => [...prevMarks, MethodsUtils.formatTime(seconds)]);
         setTrainingSet(trainingSet + 1)
         if (timeRef.current) {
-            clearInterval(timeRef.current);
-            timeRef.current = null;
+            clearInterval(timeRef.current)
+            timeRef.current = null
         }
-        setSeconds(0);
+        setSeconds(0)
     };
 
     const pauseChronometer = () => {
         if (timeRef.current) {
-            clearInterval(timeRef.current);
-            timeRef.current = null;
+            clearInterval(timeRef.current)
+            timeRef.current = null
         }
     };
 
-    const handleClear = () => {
-        setMarks([])
-        setSeconds(0)
-        setTrainingSet(0)
+    const handleChangeExercise = () => {
+        setMarks([...marks, `Exercício ${exerciseIndex}`])
+        setExerciseIndex(exerciseIndex + 1)
     }
 
-    const formatTime = (totalSeconds: number) => {
-        const minutes = Math.floor(totalSeconds / 60);
-        const secs = totalSeconds % 60;
-        const pad = (num: number) => String(num).padStart(2, '0');
-        return `${pad(minutes)}:${pad(secs)}`;
-    };
+    const handleClear = () => {
+        setMarks(["Exercício 1"])
+        setSeconds(0)
+        setTrainingSet(0)
+        pauseChronometer()
+        setExerciseIndex(2)
+    }
 
     return (
         <div className={globalStyles.container}>
@@ -92,37 +94,36 @@ export default function Training() {
                 <Divider>Cronômetro</Divider>
 
                 <div className={styles.timerContainer}>
-                    <Text size="xxl">{formatTime(seconds)}</Text>
+                    <Text size="xxl">{MethodsUtils.formatTime(seconds)}</Text>
 
                     <div className={styles.actions}>
                         <Button appearance="primary" color="green" onClick={startChronometer}>
                             Começar
                         </Button>
-                        <Button appearance="primary" color="red" onClick={pauseChronometer}>
+                        {/* <Button appearance="primary" color="red" onClick={pauseChronometer}>
                             Parar
-                        </Button>
+                        </Button> */}
                         <Button appearance="primary" color="cyan" onClick={markTime}>
                             Marcar
                         </Button>
-                        <Button appearance="primary" color="orange" onClick={handleClear}>
-                            Zerar
+                        <Button appearance="primary" color="orange" onClick={handleChangeExercise}>
+                            Mudar Exercício
+                        </Button>
+                        <Button appearance="primary" color="violet" onClick={handleClear}>
+                            Limpar
                         </Button>
                     </div>
 
                     {marks.length > 0 && (
                         <List className={styles.list} bordered>
                             {marks.map((mark, index) => (
-                                <List.Item key={index}>
-                                    <Text>{mark}</Text>
+                                <List.Item key={index} size="xs">
+                                    <Text>{mark.length > 5 ? <strong>{mark}</strong> : mark}</Text>
                                 </List.Item>
                             ))}
                         </List>
                     )}
                 </div>
-
-                {/* <div className={styles.footer}>
-                    <Button appearance="primary" color="cyan">Trocar Exercício</Button>
-                </div> */}
             </div>
         </div>
     );

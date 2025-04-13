@@ -10,6 +10,12 @@ export default function Home() {
     router.push("/users")
   }
 
+  const handleSubscribe = async () => {
+    const response = await fetch('/api/checkout', { method: 'POST' })
+    const data = await response.json()
+    window.location.href = data.url
+  }
+
   return (
     <>
       <div className={globalStyles.container}>
@@ -20,6 +26,8 @@ export default function Home() {
           <Button appearance="primary" color="cyan" size="lg" onClick={startTraining} className={styles.buttonCustomWidth}>
             Começar Treino
           </Button>
+
+          <Button onClick={handleSubscribe} appearance="primary" color="orange" size="lg">Assinar agora</Button>
         </div>
       </div>
     </>
