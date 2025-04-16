@@ -30,6 +30,8 @@ export default function Home() {
           <Button onClick={handleSubscribe} appearance="primary" color="orange" size="lg">Assinar agora</Button>
 
           <Button onClick={() => router.push("/register_crud")} appearance="primary" color="orange" size="lg">Cadastro</Button>
+
+          <Button onClick={() => router.push("/register_crud_mobile")} appearance="primary" color="orange" size="lg">Cadastro Mobile</Button>
         </div>
       </div>
     </>

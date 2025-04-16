@@ -77,8 +77,8 @@ export default function RegisterCrud() {
                                 <Cell>
                                     {rowData => (
                                         <div className={styles.tableActions}>
-                                            <TrashIcon className={styles.actionIcon}/>
-                                            <EditIcon className={styles.actionIcon}/>
+                                            <EditIcon className={styles.actionIcon} />
+                                            <TrashIcon className={styles.actionIcon} style={{ color: 'red' }} />
                                         </div>
                                     )}
                                 </Cell>
