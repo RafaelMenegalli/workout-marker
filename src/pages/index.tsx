@@ -28,6 +28,8 @@ export default function Home() {
           </Button>
 
           <Button onClick={handleSubscribe} appearance="primary" color="orange" size="lg">Assinar agora</Button>
+
+          <Button onClick={() => router.push("/register_crud")} appearance="primary" color="orange" size="lg">Cadastro</Button>
         </div>
       </div>
     </>

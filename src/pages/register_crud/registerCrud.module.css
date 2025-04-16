@@ -1,0 +1,25 @@
+.mainContainer {
+    width: 90%;
+}
+
+.actionsContainer {
+    width: 100%;
+    gap: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+}
+
+.tableActions {
+    display: flex;
+    gap: .4rem;
+}
+
+.actionIcon {
+    font-size: 1rem;
+}

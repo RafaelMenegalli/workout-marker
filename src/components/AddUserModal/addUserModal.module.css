@@ -1,0 +1,11 @@
+.formContainer {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
